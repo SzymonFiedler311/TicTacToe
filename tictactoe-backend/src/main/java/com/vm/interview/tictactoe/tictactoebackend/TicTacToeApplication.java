@@ -1,4 +1,4 @@
-package com.vm.interview.tictactoe;
+package com.vm.interview.tictactoe.tictactoebackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

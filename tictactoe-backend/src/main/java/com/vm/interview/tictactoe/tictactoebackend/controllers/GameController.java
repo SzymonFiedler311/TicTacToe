@@ -34,7 +34,7 @@ public class GameController {
         return gameService.getCurrentPlayer();
     }
 
-    @PostMapping
+    @GetMapping
     @RequestMapping(path = "/clearBoard")
     public void clearBoard() {
         gameService.clearBoard();

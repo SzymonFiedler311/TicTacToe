@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class GameDO {
-    private GameStatus gameStatus;
-    private Player lastPlayer;
+    private GameStatus gameStatus = GameStatus.IN_PROGRESS;
+    private Player currentPlayer = Player.X;
 
     public GameStatus getGameStatus() {
         return gameStatus;
@@ -20,11 +20,11 @@ public class GameDO {
         this.gameStatus = gameStatus;
     }
 
-    public Player getLastPlayer() {
-        return lastPlayer;
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
-    public void setLastPlayer(Player lastPlayer) {
-        this.lastPlayer = lastPlayer;
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }

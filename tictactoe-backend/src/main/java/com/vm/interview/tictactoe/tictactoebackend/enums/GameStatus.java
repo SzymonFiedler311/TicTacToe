@@ -5,6 +5,6 @@ package com.vm.interview.tictactoe.tictactoebackend.enums;
  */
 public enum GameStatus {
     WON,
-    LOST,
-    DRAW
+    DRAW,
+    IN_PROGRESS
 }

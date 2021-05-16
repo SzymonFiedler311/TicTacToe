@@ -8,13 +8,13 @@ import {environment} from "../../../environments/environment";
 })
 export class StatusApi {
 
-  private readonly getStatustUrl = environment.apiUrl + '/getStatus';
+  private readonly getStatusUrl = environment.apiUrl + '/getStatus';
 
   constructor(private http: HttpClient) {
   }
 
   public getStatus(): Observable<string> {
-    return this.http.get<string>(this.getStatustUrl);
+    return this.http.get<string>(this.getStatusUrl);
   }
 
 }

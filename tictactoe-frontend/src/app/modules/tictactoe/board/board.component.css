@@ -1,0 +1,11 @@
+mat-grid-tile {
+  background: rgba(170, 172, 173, 0.08);
+  font-size: 200px;
+  border: 1px gray solid;
+}
+
+.board {
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+}

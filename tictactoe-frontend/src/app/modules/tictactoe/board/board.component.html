@@ -1,0 +1,6 @@
+<div class="board">
+  <mat-grid-list cols="3" rowHeight="200px">
+    <mat-grid-tile *ngFor="let boardCell of board; let i=index"
+                   (click)="this.setTempPoint(i)">{{boardCell}}</mat-grid-tile>
+  </mat-grid-list>
+</div>

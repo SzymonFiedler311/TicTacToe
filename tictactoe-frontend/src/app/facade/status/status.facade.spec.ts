@@ -19,7 +19,8 @@ describe('StatusFacade', () => {
     const expectedStatus: string = "DRAW";
     statusApi.getStatus.and.returnValue(of(expectedStatus));
     facade.getStatus();
-    expect(facade.status).toEqual(expectedStatus, 'expected status does not match');
+    facade.status$.subscribe(status =>
+      expect(status).toEqual(expectedStatus, 'expected status does not match'));
     expect(statusApi.getStatus.calls.count()).toBe(1, 'one call');
   }));
 });

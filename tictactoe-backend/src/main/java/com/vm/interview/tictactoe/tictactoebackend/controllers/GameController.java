@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/tictactoe")
 public class GameController {
 
     private final GameService gameService;
@@ -35,9 +36,9 @@ public class GameController {
     }
 
     @GetMapping
-    @RequestMapping(path = "/clearBoard")
-    public void clearBoard() {
-        gameService.clearBoard();
+    @RequestMapping(path = "/resetGame")
+    public void resetGame() {
+        gameService.resetGame();
     }
 
     @GetMapping

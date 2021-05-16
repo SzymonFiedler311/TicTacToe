@@ -10,8 +10,8 @@ import {PointModel} from "../../models/point.model";
 export class GameApi {
 
   private readonly setPointUrl = environment.apiUrl + '/setPoint';
-  private readonly getCurrentPlayerUrl = environment.apiUrl + '/getCurrentPlayer';
-  private readonly clearBoardUrl = environment.apiUrl + '/clearBoard';
+  private readonly getCurrentPlayerUrl = environment.apiUrl + '/getPlayer';
+  private readonly resetGameUrl = environment.apiUrl + '/resetGame';
   private readonly getBoardUrl = environment.apiUrl + '/getBoard';
 
   constructor(private http: HttpClient) {
@@ -25,8 +25,8 @@ export class GameApi {
     return this.http.get<string>(this.getCurrentPlayerUrl);
   }
 
-  public clearBoard(): Observable<void> {
-    return this.http.get<void>(this.clearBoardUrl);
+  public resetGame(): Observable<void> {
+    return this.http.get<void>(this.resetGameUrl);
   }
 
   public getBoard(): Observable<string[]> {

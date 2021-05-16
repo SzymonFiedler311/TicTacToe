@@ -1,4 +1,4 @@
-import { GameApi } from './game.api';
+import {GameApi} from './game.api';
 import {of} from "rxjs";
 import {PointModel} from "../../models/point.model";
 
@@ -33,8 +33,8 @@ describe('GameApi', () => {
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   }));
 
-  it('should clear board', (() => {
-    api.clearBoard();
+  it('should reset game', (() => {
+    api.resetGame();
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   }));
 

@@ -2,13 +2,16 @@
 
 # compiled output
 /dist
-/dist-server
 /tmp
 /out-tsc
-package-lock.json
+# Only exists if Bazel was run
+/bazel-out
 
 # dependencies
 /node_modules
+
+# profiling files
+chrome-profiler-events*.json
 
 # IDEs and editors
 /.idea
@@ -25,6 +28,7 @@ package-lock.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
 # misc
 /.sass-cache
@@ -32,12 +36,9 @@ package-lock.json
 /coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store

@@ -74,7 +74,7 @@ class GameServiceTest {
         gameService.setPoint(pointDO);
         assertEquals(Player.X, gameService.getBoard().get(2), "Player should be placed.");
         //when
-        gameService.clearBoard();
+        gameService.resetGame();
         //then
         assertNull(gameService.getBoard().get(2), "Player should be cleared.");
     }

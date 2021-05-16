@@ -3,6 +3,7 @@ package com.vm.interview.tictactoe.tictactoebackend.services;
 import com.vm.interview.tictactoe.tictactoebackend.dos.BoardDO;
 import com.vm.interview.tictactoe.tictactoebackend.dos.GameDO;
 import com.vm.interview.tictactoe.tictactoebackend.dos.PointDO;
+import com.vm.interview.tictactoe.tictactoebackend.enums.GameStatus;
 import com.vm.interview.tictactoe.tictactoebackend.enums.Player;
 import com.vm.interview.tictactoe.tictactoebackend.validators.GameValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,10 @@ public class GameService {
         gameValidator.validateStatus();
         gameValidator.validatePoint(pointDO);
         boardDO.getBoard().set(pointDO.getCoordinates(), gameDO.getCurrentPlayer());
-        gameDO.setCurrentPlayer(gameDO.getCurrentPlayer() == Player.X ? Player.O : Player.X);
         gameDO.setGameStatus(statusService.getStatus());
+        if (gameDO.getGameStatus() == GameStatus.IN_PROGRESS) {
+            gameDO.setCurrentPlayer(gameDO.getCurrentPlayer() == Player.X ? Player.O : Player.X);
+        }
     }
 
     /**
@@ -55,8 +58,10 @@ public class GameService {
     /**
      * Clears the board.
      */
-    public void clearBoard() {
+    public void resetGame() {
         boardDO.setBoard(Arrays.asList(new Player[9]));
+        gameDO.setCurrentPlayer(Player.X);
+        gameDO.setGameStatus(GameStatus.IN_PROGRESS);
     }
 
     /**

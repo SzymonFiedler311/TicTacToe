@@ -30,12 +30,10 @@ public class GameValidator {
      * @param pointDO under which player should be placed
      */
     public void validatePoint(PointDO pointDO) {
-        if (pointDO.getCoordinates() >= 9) {
-            throw new InvalidPointException("Value too high!");
-        } else if (pointDO.getCoordinates() < 0) {
-            throw new InvalidPointException("Value too low!");
+        if (pointDO.getCoordinates() < 0 || pointDO.getCoordinates() >= 9) {
+            throw new InvalidPointException("Wrong value. Please select correct square!");
         } else if (boardDO.getBoard().get(pointDO.getCoordinates()) != null) {
-            throw new InvalidPointException("There is already value there!");
+            throw new InvalidPointException("There is already a value there!");
         }
     }
 

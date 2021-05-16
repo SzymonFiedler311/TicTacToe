@@ -40,9 +40,9 @@ class GameControllerTest {
     @Test
     void shouldClearBoard() {
         //when
-        gameController.clearBoard();
+        gameController.resetGame();
         //then
-        verify(gameService).clearBoard();
+        verify(gameService).resetGame();
     }
 
     @Test

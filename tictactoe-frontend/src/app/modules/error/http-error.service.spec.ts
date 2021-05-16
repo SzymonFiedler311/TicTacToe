@@ -13,4 +13,11 @@ describe('HttpErrorService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should open snackbar', () => {
+    let snackSpy: {open: jasmine.Spy;};
+    snackSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
+    service.onErrorCaught(snackSpy as any, "message");
+    expect(snackSpy.open.calls.count()).toBe(1, 'one call');
+  });
 });

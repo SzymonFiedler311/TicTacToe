@@ -9,8 +9,8 @@ import {PlayerEnum} from "../../../models/player.model";
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnDestroy, OnInit {
-  private player: string = PlayerEnum.X;
   board: string[] = [];
+  private player: string = PlayerEnum.X;
   private playerSubscription: Subscription | undefined;
   private boardSubscription: Subscription | undefined;
 
@@ -24,7 +24,12 @@ export class BoardComponent implements OnDestroy, OnInit {
     this.gameFacade.getBoard();
   }
 
-  setTempPoint(boardCell: number) {
+  ngOnDestroy(): void {
+    this.playerSubscription?.unsubscribe();
+    this.boardSubscription?.unsubscribe();
+  }
+
+  setTempPoint(boardCell: number): void {
     this.clearPreviousSelection(boardCell);
     if (!this.board[boardCell]) {
       this.gameFacade.tempPoint = {
@@ -34,15 +39,10 @@ export class BoardComponent implements OnDestroy, OnInit {
     }
   }
 
-  private clearPreviousSelection(boardCell: number) {
+  private clearPreviousSelection(boardCell: number): void {
     let coordinates = this.gameFacade.tempPoint.coordinates;
     if (boardCell !== coordinates) {
       this.board[coordinates] = '';
     }
-  }
-
-  ngOnDestroy(): void {
-    this.playerSubscription?.unsubscribe();
-    this.boardSubscription?.unsubscribe();
   }
 }

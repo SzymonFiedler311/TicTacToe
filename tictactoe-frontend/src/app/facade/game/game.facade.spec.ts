@@ -37,8 +37,18 @@ describe('GameFacade', () => {
   }));
 
   it('should reset game', (() => {
+    const expectedPlayer: string = "X";
+    const expectedBoard: string[] = ["X", "O"];
+    gameApi.getBoard.and.returnValue(of(expectedBoard));
     gameApi.resetGame.and.returnValue(of(void 0));
+    gameApi.getCurrentPlayer.and.returnValue(of(expectedPlayer));
     facade.resetGame();
+    facade.player$.subscribe(player =>
+      expect(player).toEqual(expectedPlayer, 'expected player does not match'));
+    facade.board$.subscribe(board =>
+      expect(board).toEqual(expectedBoard, 'expected board does not match'));
+    expect(gameApi.getBoard.calls.count()).toBe(1, 'one call');
+    expect(gameApi.getCurrentPlayer.calls.count()).toBe(1, 'one call');
     expect(gameApi.resetGame.calls.count()).toBe(1, 'one call');
   }));
 
@@ -48,10 +58,11 @@ describe('GameFacade', () => {
     };
     const expectedPlayer: string = "O";
     gameApi.setPoint.and.returnValue(of(void 0));
+    gameApi.getCurrentPlayer.and.returnValue(of(expectedPlayer));
+    statusFacade.getStatus.and.returnValue(of('status'));
     facade.setPoint();
     facade.player$.subscribe(player =>
       expect(player).toEqual(expectedPlayer, 'expected player does not match')
     );
-    expect(statusFacade.getStatus.calls.count()).toBe(1, 'one call');
   }));
 });

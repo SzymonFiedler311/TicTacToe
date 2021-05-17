@@ -1,48 +1,46 @@
 # TicTacToe
 
-Tech stack of application: Backend Java 11 + spring boot, Frontend Angular 12 + Angular material
+Application technology stack: Backend Java 11 + spring boot, Frontend Angular 12 + Angular material.
 
-1. To run the application two action must be taken:
-- (Backend) Spring Boot application needs to be runned (Go to TicTacToeApplication and run the main method), it will automatically lunch tomcat server on port 8089
-- (Frontend) Angular application needs to be runned by executing command 'ng serve --proxy-config proxy.conf.json' which will run the application by default at port 4200 and it will automatically proxy all of backend request to port 8089
+1. There are two steps to run the application:
+- (Backend) The Spring Boot application must be started (Go to TicTacToeApplication and run the main method), it will automatically start the tomcat server on port 8089.
+- (Frontend) Angular application must be started by executing 'ng serve --proxy-config proxy.conf.json' command, which will start the application on port 4200 by default and automatically redirect all backend requests to port 8089
 
-2. Information about backend:
+2. Backend information:
 
-For java application I've decided to use spring boot. This choice allows me to not worry about chosing and providing server as it comes with build-in tomcat server. Another of many benefits is f.e. dependency management.
-I've used it to inject beans through constructor injection as it is for me more elegant solution than seter injection. I've included another benefit of spring boot which are rest controllers.
+For the java application I decided to use spring boot. This choice allows me not to worry about selecting and provisioning a server, as it has a tomcat server built in. Another of the many advantages is for example dependency management.
+I use it to inject beans through constructor injection, as this is a more elegant solution for me than seter injection. I also took into account another advantage of Spring Boot which is rest controllers.
 
-I've split my code into 6 packages each representing different level of abstraction. First of we have controllers which are responsible only to get request form user send it to appropriate service and return a response.
-We have GameController which is responsible sctrict gamre related action such as getting the user, setting point and of course getting and reseting the board.
-Another controller is StatusController which only return informations about current status of game.
+I split my code into 6 packages, each representing a different level of abstraction. First, we have controllers that are only responsible for taking a request from a user, sending it to the appropriate service and returning a response.
+We have the GameController which is responsible for game actions such as fetching the user, setting the point and of course fetching and resetting the board.
+Another controller is the StatusController, which only returns information about the current state of the game.
 
-Second package contains all of the POJO Data Objects used by the apllication. BoardDO having board object. I've decided for ArrayList instead of 2d array because it is in my opinion more java appropriate solution.
-Because of use of Arrays.asList(new Player[9]) I was able to create a list that is modifiable but not resizeable. GameDO constains two fields - game status and current player. Those are initialized with appropriate value "In progress" and "X".
-PointDO is a simple object holding one int fields corresponding to coordinates of the point.
+The second package contains all the POJO Data Objects used by the application. BoardDO which holds the board object. I decided to use ArrayList instead of 2d array as it is in my opinion a more suitable java solution.
+By using Arrays.asList(new Player[9]) I was able to create a list that is modifiable but not resizable. GameDO contains two fields - the game state and the current player. These are initialised with the respective values "In progress" and "X".
+PointDO is a simple object storing one field of type int corresponding to the coordinates of a point.
 
-We have two enums -> Game status which can be either IN_PROGRESS, DRAW or WON and Player which can take value X and O.
+We have two enums -> Game status which can be IN_PROGRESS, DRAW or WON and Player which can take the values X and O.
 
-I've customised exceptions InvalidGameException occurs when the point is submitted but the game is already finished (can happend in case of using postman instead of gui). InvalidPointException occurs
-in case of point given that is out of the board scope. Both exception are to be given with status HTTP.BAD_REQUEST.
+I've also customised exceptions. InvalidGameException exceptions occur when a point has been sent, but the game is already finished (this can happen when using postman instead of gui). An InvalidPointException occurs when a point is given that is outside the scope of the board. Both exceptions are to be given with the status HTTP.BAD_REQUEST.
 
-There are only two services as the application is, in my opinion, too small to split it to more pieces. GameService sets the point on board, changes user to the next one and changes the status, we can also reset game which will assign
-default values to DOs. We can also get current player and get the board. It uses StatusService which is responsible of determing wether of not the game has finised with status draw or won. 
-It also uses GameValidator which is responsible of making sure that the point has correct coordinates and the game is in correct state, otherwise throws an error.
+There are only two services, as the application is too small in my opinion to split it into more pieces. GameService sets the point on the board, changes the user to the next one and changes the status, we can also reset the game which will assign default values for DO. We can also get the current player and the board. Uses StatusService, which is responsible for determining whether the game ended in a draw or a win. 
+It also uses a GameValidator, which is responsible for making sure the point has the correct coordinates and the game is in the correct state, otherwise it throws an error.
 
-I've tested 100% of code besides the main class as this would not be resonable.
+I have tested 100% of the code outside of the main class as it would not be reasonable to do so.
 
-3. Information about frontend:
+3. Frontend info:
 
-I've used Angular 12 with angular material just because I never used it and I though it would be nice to get to know this. I've used simple css instead of scss because project, in my opinion, is too small to benefit from using scss.
+I used Angular 12 with angular material just because I've never used it and thought it would be cool to get familiar with it. I used simple css instead of scss because the project, in my opinion, is too small to benefit from using scss.
 
-I've split my code into api which is responsible for making requests into backend and return the response. Those apis corresponds to controllers.
-Next we have facade which actually does something with the return values.
-Each facade hold information about reponse as an observable to which we can later on subscibe in our components.
-In GameFacade we store player and board and also we use it to store the tempPoint. This way we reuse the capabilities of angulars singleton injection between components.
-I've created three models that correspond to enums and do.
+I split my code into api's which are responsible for making requests to the backend and returning responses. These api's correspond to controllers.
+Then we have facades, which actually do something with the values returned by the api.
+Each facade stores the response information as an observable that we can then subscribe our components to.
+We store player and board information in the GameFacade, and use it to store tempPoint. In this way we use the capabilities of angular singleton injection between components.
+I created three models that correspond to enums and do.
 We have 4 components:
--Error which intercepts error from backend and displays the message as snackbar (for exaplme when submiting point without picking a square)
--Tictactoe which contains board component and two buttons that will either submit the tempPoint or reset the game. It will also monitor the games status and if the game finished it will open up the dialog component.
-  - Dialog component responsible for displaying given message
-  - Board component which stores the tempPoint and displays the board.
+- Error, which intercepts an error from the backend and displays the message as a snackbar (e.g. when sending a point without selecting a square)
+- Tictactoe, which contains a board component and two buttons that will either send a point or reset the game. It will also monitor the game status and if the game ends it will open a dialogue component.
+  - The dialogue component responsible for displaying a particular message
+  - The board component that stores the tempPoint and displays the array.
   
-  The frontend code is tested in almost 100% using karma and jasmine.
+The frontend code is almost 100% tested using karma and jasmine.

@@ -46,12 +46,25 @@ class GameServiceTest {
     @Test
     void shouldChangeCurrentPlayer() {
         //given
+        when(gameDO.getGameStatus()).thenReturn(GameStatus.IN_PROGRESS);
         PointDO pointDO = new PointDO();
         pointDO.setCoordinates(2);
         //when
         gameService.setPoint(pointDO);
         //then
         assertEquals(Player.O, gameService.getCurrentPlayer(), "Player should be changed after move.");
+    }
+
+    @Test
+    void shouldNotChangeCurrentPlayerBecauseGameIsFinished() {
+        //given
+        when(gameDO.getGameStatus()).thenReturn(GameStatus.WON);
+        PointDO pointDO = new PointDO();
+        pointDO.setCoordinates(2);
+        //when
+        gameService.setPoint(pointDO);
+        //then
+        assertEquals(Player.X, gameService.getCurrentPlayer(), "Player should not be changed after move.");
     }
 
     @Test

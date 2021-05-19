@@ -15,6 +15,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,6 +36,19 @@ class GameValidatorTest {
         //given
         PointDO pointDO = new PointDO();
         pointDO.setCoordinates(9);
+        //when
+        assertThrows(InvalidPointException.class, () -> gameValidator.validatePoint(pointDO));
+    }
+
+
+    @Test
+    void shouldThrowExceptionWhenPointAlreadyContainsValue() {
+        //given
+        PointDO pointDO = new PointDO();
+        pointDO.setCoordinates(2);
+        List<Player> playerList = Arrays.asList(new Player[9]);
+        when(boardDO.getBoard()).thenReturn(playerList);
+        playerList.set(2, Player.X);
         //when
         assertThrows(InvalidPointException.class, () -> gameValidator.validatePoint(pointDO));
     }

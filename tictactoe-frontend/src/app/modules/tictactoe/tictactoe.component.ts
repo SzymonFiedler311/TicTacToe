@@ -5,6 +5,7 @@ import {DialogComponent} from "./dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
 import {PlayerEnum} from "../../models/player.model";
+import {GameStatus} from "../../models/gamestatus.model";
 
 @Component({
   selector: 'app-tictactoe',
@@ -29,9 +30,9 @@ export class TictactoeComponent implements OnInit, OnDestroy {
   }
 
   createDialog(status: string): void {
-    if (status === "WON") {
+    if (status === GameStatus.WON) {
       this.openDialog(this.player + ' won');
-    } else if (status === "DRAW") {
+    } else if (status === GameStatus.DRAW) {
       this.openDialog('Draw');
     }
   }

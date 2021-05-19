@@ -4,7 +4,7 @@ Application technology stack: Backend Java 11 + spring boot, Frontend Angular 12
 
 1. There are two steps to run the application:
 - (Backend) The Spring Boot application must be started (Go to TicTacToeApplication and run the main method), it will automatically start the tomcat server on port 8089.
-- (Frontend) Angular application must be started by executing 'ng serve --proxy-config proxy.conf.json' command, which will start the application on port 4200 by default and automatically redirect all backend requests to port 8089
+- (Frontend) Angular application must be started by executing in tictactoe-frontend directory 'ng serve --proxy-config proxy.conf.json' command, which will start the application on port 4200 by default and automatically redirect all backend requests to port 8089
 
 2. Backend information:
 
